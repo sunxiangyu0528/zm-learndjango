@@ -7,8 +7,10 @@ from apps.projects.models import Projects
 from apps.projects.serializer import ProjectModelSerializer, \
     ProjectNameSerializer, InterfaceByProjectIdSerializer
 
-
 # ViewSet不再支持get，post，put等请求方法，只支持action动作
+from apps.projects.utils import get_count_by_project
+
+
 class ProjectsViewSet(viewsets.ModelViewSet):
     """
     项目视图
@@ -19,11 +21,9 @@ class ProjectsViewSet(viewsets.ModelViewSet):
     # permission_classes = [permissions.IsAuthenticated]
     # permission_classes = [permissions.AllowAny]
 
-    # ordering_fields = ['name', 'leader']
-    # filterset_fields = ['name', 'leader']
-    # action装饰器来声明自定义的动作
-    # methods参数用于指定该动作支持的请求方式，默认为get
-    # 默认实例方法名就是动作名
+    ordering_fields = ['id', 'name']
+    filterset_fields = ['id', 'name']
+
     @action(methods=['GET'], detail=False, url_path='nm', url_name='url_names')
     def names(self, request):
         project = self.get_queryset()
@@ -37,3 +37,28 @@ class ProjectsViewSet(viewsets.ModelViewSet):
         instance = self.get_object()
         serializer = InterfaceByProjectIdSerializer(instance=instance)
         return Response(serializer.data)
+
+    def perform_destroy(self, instance):
+        instance.delete()
+
+    def list(self, request, *args, **kwargs):
+        # queryset = self.filter_queryset(self.get_queryset())
+        #
+        # page = self.paginate_queryset(queryset)
+        # if page is not None:
+        #     serializer = self.get_serializer(page, many=True)
+        #     data = serializer.data
+        #     data = get_count_by_project(data)
+        #     return self.get_paginated_response(data)
+        #
+        # serializer = self.get_serializer(queryset, many=True)
+        # data = serializer.data
+        # data = get_count_by_project(data)
+        # return Response(serializer.data)
+        # # return Response({"sunxy": 666})
+        response = super().list(request, *args, **kwargs)
+        response.data["results"] = get_count_by_project(response.data["results"])
+        # return Response(response.data)
+        return response
+    # def get_serializer_class(self):
+    #     super().get_serializer_class()

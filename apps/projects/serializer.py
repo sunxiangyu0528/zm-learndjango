@@ -49,6 +49,7 @@ from apps.projects.models import Projects
 #         return Projects.objects.create(**validated_data)
 
 class ProjectModelSerializer(serializers.ModelSerializer):
+    # serializers.StringRelatedField
     class Meta():
         # 指定参考哪一个模型类创建
         model = Projects
@@ -77,8 +78,6 @@ class InterfacesNameSerializer(serializers.ModelSerializer):
 
 class InterfaceByProjectIdSerializer(serializers.ModelSerializer):
     interface_set = InterfacesNameSerializer(read_only=True, many=True)
-    # project_id = serializers.PrimaryKeyRelatedField()  # 只会序列化出 id
-    # subs = serializers.StringRelatedField()  # 序列化的时模型中str方法返回值
     # print("***********", interface_set, '**************')
 
     class Meta:

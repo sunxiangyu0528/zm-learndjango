@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class ConfiguresConfig(AppConfig):
-    name = 'configures'
+    name = 'apps.configures'

@@ -106,8 +106,8 @@ DATABASES = {
         'USER': 'root',
         # 数据库密码
         'PASSWORD': '123456',
-        'HOST':'localhost',
-        # 'HOST': '146.56.194.79',
+        # 'HOST':'localhost',
+        'HOST': '146.56.194.79',
 
         'PORT': '3306',
         # 'OPTIONS': {
@@ -164,9 +164,8 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.backends.DjangoFilterBackend'
     ],
     # 在全局指定分页的引擎
-    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'DEFAULT_PAGINATION_CLASS': 'utils.pagination.PageNumberPaginationManual',
-
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # 'DEFAULT_PAGINATION_CLASS': 'utils.pagination.PageNumberPaginationManual',
     'PAGE_SIZE': 3,  # 每页数目,
     "DEFAULT_SCHEMA_CLASS": 'rest_framework.schemas.coreapi.AutoSchema',
     # "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated",],

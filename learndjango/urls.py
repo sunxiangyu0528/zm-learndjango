@@ -36,6 +36,9 @@ schema_view = get_schema_view(
 
 urlpatterns = [path('admin/', admin.site.urls),
                path('', include('apps.projects.urls')),
+               path('', include('apps.configures.urls')),
+               path('', include('apps.interfaces.urls')),
+
                path('dos/', include_docs_urls(title="测试平台接口文档", description='这是一个美轮美奂的接口文档平台')),
                re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0),
                        name='schema-json'),
