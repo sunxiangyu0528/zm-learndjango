@@ -1,7 +1,9 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
 from rest_framework import viewsets
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from apps.interfaces.models import Interface
@@ -27,4 +29,9 @@ class InterfaceViewSet(viewsets.ModelViewSet):
 
         return Response(serializer.data)
 
-    # Interface.objects.filter(project_id=1)
+    @action(methods=['GET'], detail=False, url_path='id11', url_name='url_names')
+    def id_1(self, request):
+        project = Interface.objects.filter(project_id=2)
+        serializer = InterfaceModelSerializer(instance=project,many=True)
+        # return Response(serializer.data)
+        return Response(serializer.data)
