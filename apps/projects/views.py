@@ -38,27 +38,17 @@ class ProjectsViewSet(viewsets.ModelViewSet):
         serializer = InterfaceByProjectIdSerializer(instance=instance)
         return Response(serializer.data)
 
-    # def perform_destroy(self, instance):
-    #     instance.delete()
-    #
-    # def list(self, request, *args, **kwargs):
-    #     # queryset = self.filter_queryset(self.get_queryset())
-    #     #
-    #     # page = self.paginate_queryset(queryset)
-    #     # if page is not None:
-    #     #     serializer = self.get_serializer(page, many=True)
-    #     #     data = serializer.data
-    #     #     data = get_count_by_project(data)
-    #     #     return self.get_paginated_response(data)
-    #     #
-    #     # serializer = self.get_serializer(queryset, many=True)
-    #     # data = serializer.data
-    #     # data = get_count_by_project(data)
-    #     # return Response(serializer.data)
-    #     # # return Response({"sunxy": 666})
-    #     response = super().list(request, *args, **kwargs)
-    #     response.data["results"] = get_count_by_project(response.data["results"])
-    #     # return Response(response.data)
-    #     return response
-    # def get_serializer_class(self):
-    #     super().get_serializer_class()
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            datas = serializer.data
+            datas = get_count_by_project(datas)
+            return self.get_paginated_response(datas)
+
+        serializer = self.get_serializer(queryset, many=True)
+        datas = serializer.data
+        datas = get_count_by_project(datas)
+        return Response(datas)

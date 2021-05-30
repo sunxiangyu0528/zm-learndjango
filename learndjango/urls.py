@@ -43,7 +43,7 @@ urlpatterns = [path('admin/', admin.site.urls),
                path('', include('apps.reports.urls')),
                path('', include('apps.testsuits.urls')),
                path('', include('apps.testcases.urls')),
-               path('user', include('apps.user.urls')),
+               path('user/', include('apps.user.urls')),
 
                path('dos/', include_docs_urls(title="测试平台接口文档", description='这是一个美轮美奂的接口文档平台')),
                re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0),
