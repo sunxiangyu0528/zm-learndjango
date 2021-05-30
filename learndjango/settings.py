@@ -9,11 +9,16 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+import pymysql
+
+pymysql.install_as_MySQLdb()
 import os
 import datetime
 import sys
 from pathlib import Path
+from rest_framework import settings
 
+# from rest_framework_jwt import settings
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 print(BASE_DIR)
@@ -39,9 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'apps.projects.apps.ProjectsConfig',
-    # 'apps.interfaces.apps.InterfacesConfig',
-    # 'apps.user.apps.UserConfig',
     'rest_framework',
     'django_filters',
     'drf_yasg',
@@ -54,6 +56,7 @@ INSTALLED_APPS = [
     'reports.apps.ReportsConfig',
     'testcases.apps.TestcasesConfig',
     'testsuits.apps.TestsuitsConfig',
+    'rest_framework_jwt',
 
 ]
 
@@ -106,7 +109,7 @@ DATABASES = {
         'USER': 'root',
         # 数据库密码
         'PASSWORD': '123456',
-        'HOST':'localhost',
+        'HOST': 'localhost',
         # 'HOST': '146.56.194.79',
 
         'PORT': '3306',
@@ -169,8 +172,8 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 3,  # 每页数目,
     "DEFAULT_SCHEMA_CLASS": 'rest_framework.schemas.coreapi.AutoSchema',
     # "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated",],
-    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.AllowAny"],
-    # "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAdminUser",],
+    # "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.AllowAny"],
+    # "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAdminUser", ],
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',  # 第一种jwt方式
@@ -178,7 +181,14 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',  # session认证
     ),
 }
-ALLOWED_HOSTS = ["146.45.194.79", "localhost", "0.0.0.0:8000", "127.0.0.1"]
+
+JWT_AUTH = {
+    # 默认5分钟过期，
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
+    # 默认前缀
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',
+
+}
 
 BASE_LOG_DIR = os.path.join(BASE_DIR, "logs")
 # LOGGING = {

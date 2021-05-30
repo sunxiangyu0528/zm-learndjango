@@ -42,6 +42,8 @@ urlpatterns = [path('admin/', admin.site.urls),
                path('', include('apps.debugtalks.urls')),
                path('', include('apps.reports.urls')),
                path('', include('apps.testsuits.urls')),
+               path('', include('apps.testcases.urls')),
+               path('user', include('apps.user.urls')),
 
                path('dos/', include_docs_urls(title="测试平台接口文档", description='这是一个美轮美奂的接口文档平台')),
                re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0),
@@ -49,7 +51,6 @@ urlpatterns = [path('admin/', admin.site.urls),
                re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
                re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
                path('api/', include('rest_framework.urls')),
-               path('user/', include('apps.user.urls'))
                ]
 
 # urlpatterns = [
