@@ -109,7 +109,7 @@ DATABASES = {
         'USER': 'root',
         # 数据库密码
         'PASSWORD': '123456',
-        'HOST': 'localhost',
+        'HOST': '121.4.252.95',
         # 'HOST': '146.56.194.79',
 
         'PORT': '3306',
