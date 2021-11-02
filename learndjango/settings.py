@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import pymysql
-print("888)
+
 pymysql.install_as_MySQLdb()
 import os
 import datetime
@@ -109,8 +109,9 @@ DATABASES = {
         'USER': 'root',
         # 数据库密码
         'PASSWORD': '123456',
-        'HOST': '121.4.252.95',
+        # 'HOST': '121.4.252.95',
         # 'HOST': '146.56.194.79',
+        'HOST': '124.71.73.194',
 
         'PORT': '3306',
         # 'OPTIONS': {
